@@ -35,7 +35,7 @@ VALIDATE(){
 echo "script started running at : $(date)"
 
 CHECK_ROOT
-
+ 
 dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "mysql-server installation"
 
