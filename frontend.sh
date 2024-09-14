@@ -56,3 +56,4 @@ unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATE $? "unzipping code"
 
 systemctl restart nginx &>>$LOG_FILE
+VALIDATE $? "restarting nginx"
