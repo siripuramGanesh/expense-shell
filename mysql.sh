@@ -47,9 +47,10 @@ VALIDATE $? "starting mysql"
 
 mysql -h mysql.ganeshsiripuram.tech -u root -pExpenseApp@1 -e "show databases;" &>>$LOG_FILE
 if [ $? -ne 0 ]
-then
+    then
     echo "mysql root passowrd is not setup,setting now" &>>$LOG_FILE
     mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
     VALIDATE $? "setting root password"
-else
+    else
     echo "mysql root passowrd is already setup  $Y SKIPPING $N" | tee -a $LOG_FILE
+fi
