@@ -66,7 +66,7 @@ VALIDATE $? "Downloading backend file"
 
 cd /app
 rm -rf /app/*
-unzip /tmp/backend.zip
+unzip /tmp/backend.zip &>>$LOG_FILE
 VALIDATE $? "unzipping backend  file"
 
 cd /app
@@ -76,5 +76,5 @@ VALIDATE $? "installing npm"
 
 cp /c/v7devopscloud/repos/expense-shell/backend.service /etc/systemd/system/backend.service
 
-dnf install mysql -y
+dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "insralling mysql"
