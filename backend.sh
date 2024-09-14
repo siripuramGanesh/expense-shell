@@ -74,7 +74,7 @@ cd /app
 npm install &>>$LOG_FILE
 VALIDATE $? "installing npm"
 
-cp /c/v7devopscloud/repos/expense-shell/backend.service /etc/systemd/system/backend.service
+cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
 dnf install mysql -y &>>$LOG_FILE
 VALIDATE $? "insralling mysql"
