@@ -77,4 +77,16 @@ VALIDATE $? "installing npm"
 cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 
 dnf install mysql -y &>>$LOG_FILE
-VALIDATE $? "insralling mysql"
+VALIDATE $? "installing mysql"
+
+mysql -h mysql.ganeshsiripuram.tech -uroot -pExpenseApp@1 < /app/schema/backend.sql
+VALIDATE $? "schema loading"
+
+systemctl daemon-reload
+VALIDATE $? "deamon_reload"
+
+systemctl enable backend
+VALIDATE $? "enabling backend"
+
+systemctl restart backend
+VALIDATE $? "restarting backend"
