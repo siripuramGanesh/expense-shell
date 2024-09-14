@@ -6,11 +6,13 @@ TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 LOG_FILE="$LOG_FOLDER/$SCRITNAME-$TIMESTAMP.log" 
 mkdir -p $LOG_FOLDER
  
+USERID=$(id -u)
+
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
-USERID=$(id -u)
+
 
 CHECK_ROOT(){
     if [ $USERID -ne 0 ]
@@ -20,27 +22,28 @@ CHECK_ROOT(){
     fi
 }
 
-CHECK_ROOT
-
 VALIDATE(){
     if [ $1 -ne 0 ]
     then 
-        echo -e "$2 is $G successful $N" | tee -a $LOG_FILE
+        echo -e "$2 is $G not successful $N" | tee -a $LOG_FILE
+        exit 1
     else
-        echo -e "$2 is $R not successful $N" | tee -a $LOG_FILE
+        echo -e "$2 is $R  successful $N" | tee -a $LOG_FILE
     fi
 }
 
 echo "script started running at : $(date)"
 
-dnf install mysql-server -y
+CHECK_ROOT
+
+dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "mysql-server installation"
 
-systemctl enable mysqld
+systemctl enable mysqld &>>$LOG_FILE
 VALIDATE $? "enabling mysql"
 
-systemctl start mysqld
+systemctl start mysqld &>>$LOG_FILE
 VALIDATE $? "starting mysql"
 
-mysql_secure_installation --set-root-pass ExpenseApp@1
+mysql_secure_installation --set-root-pass ExpenseApp@1 &>>$LOG_FILE
 VALIDATE $? "setting root password"
