@@ -15,7 +15,7 @@ USERID=$(id -u)
 CHECK_ROOT(){
     if [ $USERID -ne 0 ]
     then
-        echo "$R please run the script using root privilages $N" | tee -a $LOG_FILE
+        echo -e "$R please run the script using root privilages $N" | tee -a $LOG_FILE
         exit 1
     fi
 }
@@ -25,9 +25,9 @@ CHECK_ROOT
 VALIDATE(){
     if [ $1 -ne 0 ]
     then 
-        echo "$2 is $G successful $N" | tee -a $LOG_FILE
+        echo -e "$2 is $G successful $N" | tee -a $LOG_FILE
     else
-        echo "$2 is $R not successful $N" | tee -a $LOG_FILE
+        echo -e "$2 is $R not successful $N" | tee -a $LOG_FILE
     fi
 }
 
