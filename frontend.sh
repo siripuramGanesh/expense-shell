@@ -36,23 +36,23 @@ echo "script started running at : $(date)"
 
 CHECK_ROOT
 
-dnf install nginx -y
+dnf install nginx -y &>>$LOG_FILE
 VALIDATE $? "installing nginx"
 
-systemctl enable nginx
+systemctl enable nginx &>>$LOG_FILE
 VALIDATE $? "enabling nginx"
 
-systemctl start nginx
+systemctl start nginx &>>$LOG_FILE
 VALIDATE $? "starting nginx"
 
-rm -rf /usr/share/nginx/html/*
+rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
 
-curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip
+curl -o /tmp/frontend.zip https://expense-builds.s3.us-east-1.amazonaws.com/expense-frontend-v2.zip &>>$LOG_FILE
 VALIDATE $? "downloading code"
 
 cd /usr/share/nginx/html
 
-unzip /tmp/frontend.zip
+unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATE $? "unzipping code"
 
-systemctl restart nginx
+systemctl restart nginx &>>$LOG_FILE
